@@ -38,6 +38,8 @@
 var setNumbersMines = 16;
 var setGridDifficulty = 100;
 
+//SETTAGGIO DIFFICOLTÁ
+
 // 1. Genero 16 numeri casuali tra 1 e 100, escludendo i doppioni
 var randomMines = [];
 while (randomMines.length != setNumbersMines) {
@@ -49,29 +51,43 @@ while (randomMines.length != setNumbersMines) {
 }
 
 // 2.1 Genero array con numeri da 1 a 100
-grid = [];
+gridVisible = [];
 for (var i = 1; i <= setGridDifficulty; i++) {
-    grid.push(i);
+    gridVisible.push(i);
 }
-console.log(grid);
+console.log(gridVisible);
 
 // 2.2 Rimuovo i 16 numeri che corrispondono alle mine
-var gridFiltered = grid.filter(item => !randomMines.includes(item));
+var gridFiltered = gridVisible.filter(item => !randomMines.includes(item));
 console.log(gridFiltered);
 
 // 2.3
 while (gridFiltered.length != 0) {
     inputNumber = parseInt(prompt('Scegli un numero da 1 a 100'));
-    if (gridFiltered.includes(inputNumber)) { // se il numero scelto non è contenuto nell'array
-        console.log('Non hai scelto una mina');
-        gridFiltered = gridFiltered.filter(item => item !== inputNumber); // restituisce un nuovo array contenente
+    while (!gridVisible.includes(inputNumber)) {
+        var gridVisibleStr = gridVisible.join(" - ");
+        console.log('Hai a disposizione questi numeri: ' + gridVisibleStr);
+        inputNumber = parseInt(prompt('Hai già scelto questo numero oppure hai inserito un numero non valido, consulta la lista dei numeri scelti e prova di nuovo'));
+
     }
-    if (gridFiltered.length == 0) {
-        console.log('Hai vinto');
+    if (gridFiltered.includes(inputNumber)) { // se il numero scelto è contenuto nell'array
+        console.log('Complimenti, questa volta ti è andata bene');
+        gridFiltered = gridFiltered.filter(item => item !== inputNumber); // rimuovo dall'array nascosto il numero scelto dall'utente restituisce un nuovo array contenente i valori che non sono inputNumber
+        gridVisible = gridVisible.filter(item => item !== inputNumber); // rimuovo dall'array visibile il numero scelto dall'utente restituisce un nuovo array contenente i valori che non sono inputNumber
+        var gridVisibleStr = gridVisible.join(" - ");
+        console.log('Hai a disposizione questi numeri: ' + gridVisibleStr);
+    }
+    if (randomMines.includes(inputNumber)){
+        console.log('BOOM!');
+        console.log('Il tuo punteggio è: ' + (setGridDifficulty - gridVisible.length));
+        break;
     }
 }
 
-// userNumber = parseInt(prompt('Scegli un numero da 1 a 100'))
+if (gridFiltered.length == 0) {
+    console.log('Hai vinto');
+}
+
 
 function generaRandom(min, max) { // funzione che genera un numero random tra due valori dati in ingresso MIN e MAX, estremi inclusi
     var numeroRandom = Math.floor(Math.random() * (max - min + 1) ) + min;
