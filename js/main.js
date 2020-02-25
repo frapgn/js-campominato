@@ -59,7 +59,7 @@ var gridFiltered = grid.filter(item => !randomMines.includes(item));
 console.log(gridFiltered);
 
 // 2.3
-while (true) {
+while (gridFiltered.length != 0) {
 
 }
 
