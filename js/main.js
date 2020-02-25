@@ -36,14 +36,27 @@
 
 // SETTAGGI
 var setNumbersMines = 16;
-var setGridDifficulty = 100;
+// var setGridDifficulty = 100;
 
 //SETTAGGIO DIFFICOLTÁ
+switch (prompt('Imposta una difficoltà:\n0 => tra 1 e 100\n1 => tra 1 e 80\n2 => tra 1 e 50\nTutti gli altri tasti => tra 1 e 100')) {
+    case '0':
+        var setGridDifficulty = 100;
+        break;
+    case '1':
+        var setGridDifficulty = 80;
+        break;
+    case '2':
+        var setGridDifficulty = 50;
+        break;
+    default:
+        var setGridDifficulty = 100;
+}
 
-// 1. Genero 16 numeri casuali tra 1 e 100, escludendo i doppioni
+// 1. Genero 16 numeri casuali tra 1 e setGridDifficulty, escludendo i doppioni
 var randomMines = [];
 while (randomMines.length != setNumbersMines) {
-    randomNum = generaRandom(1, 100);
+    randomNum = generaRandom(1, setGridDifficulty);
     if (!randomMines.includes(randomNum)) {
         randomMines.push(randomNum);
     }
