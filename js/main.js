@@ -54,6 +54,15 @@ for (var i = 1; i <= setGridDifficulty; i++) {
 }
 console.log(grid);
 
+// 2.2 Rimuovo i 16 numeri che corrispondono alle mine
+var gridFiltered = grid.filter(item => !randomMines.includes(item));
+console.log(gridFiltered);
+
+// 2.3
+while (true) {
+
+}
+
 // userNumber = parseInt(prompt('Scegli un numero da 1 a 100'))
 
 function generaRandom(min, max) { // funzione che genera un numero random tra due valori dati in ingresso MIN e MAX, estremi inclusi
