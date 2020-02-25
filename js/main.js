@@ -28,6 +28,7 @@
             - Controllo se ha già scelto il numero: usando includes() controllo se il numero è presente nell'array
                 SI: console.log('Bravo, non hai scelto una mina') cioè non ha ancora scelto quel numero
                     lo rimuovo dall'array.
+                    se l'array è vuoto: HAI VINTO IL GIOCO
                 NO: Controllo se è una mina:
                     SI: console.log('Hai perso')
                     NO: parseInt(prompt('Hai già scelto questo numero oppure hai inserito un numero non valido, consulta la lista dei numeri scelti e prova di nuovo'))
@@ -60,7 +61,14 @@ console.log(gridFiltered);
 
 // 2.3
 while (gridFiltered.length != 0) {
-
+    inputNumber = parseInt(prompt('Scegli un numero da 1 a 100'));
+    if (gridFiltered.includes(inputNumber)) { // se il numero scelto non è contenuto nell'array
+        console.log('Non hai scelto una mina');
+        gridFiltered = gridFiltered.filter(item => item !== inputNumber); // restituisce un nuovo array contenente
+    }
+    if (gridFiltered.length == 0) {
+        console.log('Hai vinto');
+    }
 }
 
 // userNumber = parseInt(prompt('Scegli un numero da 1 a 100'))
