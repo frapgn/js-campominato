@@ -36,32 +36,48 @@
 
 // SETTAGGI
 var setNumbersMines = 16;
-// var setGridDifficulty = 100;
+// var setGridDifficulty = 100; // Scelta statica
+var setGridDifficulty = sceltaDifficolta(); // Scelta attraverso la funzione
 
 //SETTAGGIO DIFFICOLTÁ
-switch (prompt('Imposta una difficoltà:\n0 => tra 1 e 100\n1 => tra 1 e 80\n2 => tra 1 e 50\nTutti gli altri tasti => tra 1 e 100')) {
-    case '0':
-        var setGridDifficulty = 100;
-        break;
-    case '1':
-        var setGridDifficulty = 80;
-        break;
-    case '2':
-        var setGridDifficulty = 50;
-        break;
-    default:
-        var setGridDifficulty = 100;
-}
+// switch (prompt('Imposta una difficoltà:\n0 => tra 1 e 100\n1 => tra 1 e 80\n2 => tra 1 e 50\nTutti gli altri tasti => tra 1 e 100')) {
+//     case '0':
+//         var setGridDifficulty = 100;
+//         break;
+//     case '1':
+//         var setGridDifficulty = 80;
+//         break;
+//     case '2':
+//         var setGridDifficulty = 50;
+//         break;
+//     default:
+//         var setGridDifficulty = 100;
+// }
+// POSSIAMO TRASFORMARE LO SWITCH SOPRA IN UNA FUNZIONE
 
-// 1. Genero 16 numeri casuali tra 1 e setGridDifficulty, escludendo i doppioni
+
+
+// 1. Genero 16 numeri casuali tra 1 e setGridDifficulty, escludendo i doppioni e li pusho in un array
 var randomMines = [];
 while (randomMines.length != setNumbersMines) {
-    randomNum = generaRandom(1, setGridDifficulty);
+    var randomNum = generaRandom(1, setGridDifficulty);
     if (!randomMines.includes(randomNum)) {
         randomMines.push(randomNum);
     }
     console.log(randomMines);
 }
+// POSSIAMO TRASFORMARE IL CICLO SOPRA IN UNA FUNZIONE
+// function generaMine(setGridDifficulty, setNumbersMines) {
+//     var randomMines = [];
+//     while (randomMines.length != setNumbersMines) {
+//         var randomNum = generaRandom(1, setGridDifficulty);
+//         if (!randomMines.includes(randomNum)) {
+//             randomMines.push(randomNum);
+//         }
+//     }
+//     return randomMines;
+// }
+
 
 // 2.1 Genero array con numeri da 1 a 100
 gridVisible = [];
@@ -81,7 +97,6 @@ while (gridFiltered.length != 0) {
         var gridVisibleStr = gridVisible.join(" - ");
         console.log('Hai a disposizione questi numeri: ' + gridVisibleStr);
         inputNumber = parseInt(prompt('Hai già scelto questo numero oppure hai inserito un numero non valido, consulta la lista dei numeri scelti e prova di nuovo'));
-
     }
     if (gridFiltered.includes(inputNumber)) { // se il numero scelto è contenuto nell'array
         console.log('Complimenti, questa volta ti è andata bene');
@@ -96,11 +111,28 @@ while (gridFiltered.length != 0) {
         break;
     }
 }
-
 if (gridFiltered.length == 0) {
     console.log('Hai vinto');
 }
 
+
+function sceltaDifficolta() {
+    var scelta = prompt('Imposta una difficoltà:\n0 => tra 1 e 100\n1 => tra 1 e 80\n2 => tra 1 e 50\nTutti gli altri tasti => tra 1 e 100')
+    switch (scelta) {
+        case '0':
+            var difficolta = 100;
+            break;
+        case '1':
+            var difficolta = 80;
+            break;
+        case '2':
+            var difficolta = 50;
+            break;
+        default:
+            var difficolta = 100;
+    }
+    return difficolta;
+}
 
 function generaRandom(min, max) { // funzione che genera un numero random tra due valori dati in ingresso MIN e MAX, estremi inclusi
     var numeroRandom = Math.floor(Math.random() * (max - min + 1) ) + min;
